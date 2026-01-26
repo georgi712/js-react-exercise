@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem.jsx";
-import { selectCartItems, selectTotalPrice } from "./cartSelectors.js";
+import { selectCartItems, selectTotalItems, selectTotalPrice } from "./cartSelectors.js";
 
 function Cart() {
   const cart = useSelector(selectCartItems);
-  const totalItems = useSelector(selectCartItems);
+  const totalItems = useSelector(selectTotalItems);
   const totalPrice = useSelector(selectTotalPrice);
 
   return (
