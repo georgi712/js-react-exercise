@@ -5,9 +5,15 @@ const fakeProducts = [
 ];
 
 export const fetchProductsApi = () => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(fakeProducts);
+      const shouldFail = Math.random() < 0.3;
+
+      if (shouldFail) {
+        reject(new Error("Network error: failed to fetch products"));
+      } else {
+        resolve(fakeProducts);
+      }
     }, 1000);
   });
 };
