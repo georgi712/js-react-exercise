@@ -7,9 +7,9 @@ export const selectTotalPrice = state => {
     return state.cart.cart.reduce((sum, item) => sum + item.quantity * item.price, 0)
 };
 
-export const selectCartLoading = state => state.cart.isLoading;
+// export const selectCartLoading = state => state.cart.isLoading;
 
-export const selectCartError = state => state.cart.errorMessage;
+// export const selectCartError = state => state.cart.errorMessage;
 
 /*
 1. Why should derived state NOT be stored in Redux?

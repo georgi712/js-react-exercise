@@ -1,18 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchProductsApi } from "../../api/productsApi.js";
+import { createSlice } from "@reduxjs/toolkit";
 
-const fetchProducts = createAsyncThunk(
-  'products/fetchAll',
-  async () => {
-    const response = await fetchProductsApi();
-    return response
-  }
-)
 
 const initialState = {
-  cart: [],
-  isLoading: false,
-  errorMessage: null,
+  cart: [
+    { id: 1, name: "Apple", price: 2, quantity: 3 },
+    { id: 2, name: "Banana", price: 1, quantity: 5 }
+  ],
   lastUpdated: null
 };
 
@@ -40,25 +33,6 @@ const cartSlice = createSlice({
       );
       state.lastUpdated = Date.now();
     }
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchProducts.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = null;
-      })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.cart = action.payload.map(p => ({
-          ...p,
-          quantity: 1
-        }))
-        state.lastUpdated = Date.now();
-      })
-      .addCase(fetchProducts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.errorMessage = action.error.message || "Failed to fetch!"
-      })
   }
 });
 
@@ -67,7 +41,5 @@ export const {
   decrementItem,
   removeItem
 } = cartSlice.actions;
-
-export { fetchProducts }
 
 export default cartSlice.reducer;
