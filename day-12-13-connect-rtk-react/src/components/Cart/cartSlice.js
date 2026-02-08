@@ -32,6 +32,24 @@ const cartSlice = createSlice({
         item => item.id !== action.payload
       );
       state.lastUpdated = Date.now();
+    },
+    addToCart(state, action) {
+      const product = action.payload;
+
+      const existingItem = state.cart.find(
+        item => item.id === product.id
+      );
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({
+          ...product,
+          quantity: 1
+        });
+      }
+
+      state.lastUpdated = Date.now();
     }
   }
 });
@@ -39,7 +57,8 @@ const cartSlice = createSlice({
 export const {
   incrementItem,
   decrementItem,
-  removeItem
+  removeItem,
+  addToCart
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
