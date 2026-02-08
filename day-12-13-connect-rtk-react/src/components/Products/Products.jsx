@@ -1,7 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectProducts, selectProductsError, selectProductsLoading } from "./productsSelectors.js";
+import {
+  selectProducts,
+  selectProductsError,
+  selectProductsLoading,
+} from "./productsSelectors.js";
 import { useEffect } from "react";
 import { fetchProducts } from "./productSlice.js";
+import { addToCart } from "../Cart/cartSlice.js";
 
 function Products() {
   const dispatch = useDispatch();
@@ -26,10 +31,17 @@ function Products() {
       return <p>There are no products yet.</p>;
     }
 
-    return products.map(item => {
-        return <p key={item.id}>{item.name} - {item.price}€</p>
-      })
-  }
+    return products.map((product) => (
+      <div key={product.id}>
+        <p>
+          {product.name} - {product.price}€
+        </p>
+        <button onClick={() => dispatch(addToCart(product))}>
+          Add to cart
+        </button>
+      </div>
+    ));
+  };
 
   return (
     <div>
